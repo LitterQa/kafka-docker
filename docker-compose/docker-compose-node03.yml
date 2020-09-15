@@ -15,7 +15,7 @@ services:
     environment:
       CLUSTER_NAME: KAFKA
       KAFKA_BROKER_ID: 3
-      KAFKA_ADVERTISED_HOST_NAME: kafka03-ip
+      KAFKA_ADVERTISED_HOST_NAME: kafka03-IP
       KAFKA_ZOOKEEPER_CONNECT: zookeeper01:2181,zookeeper02:2181,zookeeper03:2181
     links:
       - zookeeper03
