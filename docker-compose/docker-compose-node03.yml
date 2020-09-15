@@ -1,0 +1,24 @@
+version: '3.1'
+services:
+  zookeeper:
+    image: zookeeper:3.4.14
+    container_name: zookeeper03
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zookeeper01:2888:3888 server.2=zookeeper02:2888:3888 server.3=0.0.0.0:2888:3888
+    network_mode: host
+  kafka:
+    image: wurstmeister/kafka:2.13-2.6.0
+    container_name: kafka03
+    ports:
+      - "9092:9092"
+    environment:
+      CLUSTER_NAME: KAFKA
+      KAFKA_BROKER_ID: 3
+      KAFKA_ADVERTISED_HOST_NAME: kafka03-ip
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper01:2181,zookeeper02:2181,zookeeper03:2181
+    links:
+      - zookeeper03
+    volumes:
+      - /opt/docker/kafka/logs/:/kafka
+      - /etc/timezone:/etc/timezone
